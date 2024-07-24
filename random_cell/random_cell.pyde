@@ -75,11 +75,12 @@ def calc_grid():
   
 def draw_grid():
     
-    for y in range(height):
-        for x in range(width):
-            if grid[y][x] == 1:
-                fill(random.randint(0,255),random.randint(0,255),random.randint(0,255))
-                rect(x * scale_grid, y * scale_grid, scale_grid, scale_grid)
+    # for y in range(height):
+    for x in range(width):
+        y = current_row
+        if grid[current_row][x] == 1:
+            fill(random.randint(0,255),random.randint(0,255),random.randint(0,255))
+            rect(x * scale_grid, y * scale_grid, scale_grid, scale_grid)
 def draw():
     global changer,rule
     if changer % 10 ==0:
