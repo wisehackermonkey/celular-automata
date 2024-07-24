@@ -66,20 +66,28 @@ def calc_grid():
                 window = grid[current_row][i-1:i+2]
                 if window == [1, 1, 1]:
                     next_row[i] = rule[0]
+                    fill(0)
                 elif window == [1, 1, 0]:
                     next_row[i] = rule[1]
+                    fill(32)
                 elif window == [1, 0, 1]:
                     next_row[i] = rule[2]
+                    fill(64)
                 elif window == [1, 0, 0]:
                     next_row[i] = rule[3]
+                    fill(96)
                 elif window == [0, 1, 1]:
                     next_row[i] = rule[4]
+                    fill(160)
                 elif window == [0, 1, 0]:
                     next_row[i] = rule[5]
+                    fill(192)
                 elif window == [0, 0, 1]:
                     next_row[i] = rule[6]
+                    fill(224)
                 elif window == [0, 0, 0]:
                     next_row[i] = rule[7]
+                    fill(255)
         grid[current_row + 1] = next_row
         current_row += 1
         draw_grid()
@@ -102,7 +110,7 @@ def draw_grid():
         y = current_row
         if grid[current_row][x] == 1:
             # fill(random.randint(0,255),random.randint(0,255),random.randint(0,255))
-            fill(r,g,b)
+            # fill(r,g,b)
             rect(x * scale_grid, y * scale_grid, scale_grid, scale_grid)
 def draw():
     global changer,rule, CHANGE_INTERVAL
