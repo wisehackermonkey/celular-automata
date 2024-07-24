@@ -3,8 +3,7 @@ import random
 
 def setup():
     size(800, 800)  # Set the size of the window
-    global  running,rule_number,  width, height,scale_grid, changer, xoff,yoff,zoff, CHANGE_INTERVAL
-    CHANGE_INTERVAL = 10
+    global  running,rule_number,  width, height,scale_grid, changer, xoff
     changer = 0
     running = False
     rule_number = 22
@@ -13,8 +12,7 @@ def setup():
     scale_grid = 2
 
     xoff = 0.0 # used for perlin noise
-    yoff = 0.0
-    zoff = 0.0 
+
     background(0)
     # stroke(0)
     noStroke()
@@ -85,17 +83,16 @@ def calc_grid():
 def draw_grid():
     
     # for y in range(height):
-    global xoff, yoff, zoff
+    global xoff
     xoff += 0.05
     r = noise(xoff) * 255
     xoff += 0.1
 
-    g  = noise(yoff) * 255
-    yoff += 1.01
+    g  = noise(xoff) * 255
+    xoff *= 1.01
 
-    b  = noise(zoff) * 255
-    zoff *= 1.01
-
+    b  = noise(xoff) * 255
+    
     for x in range(width):
         y = current_row
         if grid[current_row][x] == 1:
@@ -103,8 +100,8 @@ def draw_grid():
             fill(r,g,b)
             rect(x * scale_grid, y * scale_grid, scale_grid, scale_grid)
 def draw():
-    global changer,rule, CHANGE_INTERVAL
-    if changer % CHANGE_INTERVAL ==0:
+    global changer,rule
+    if changer % 10 ==0:
         rule = convert_to_rule(random.choice([30,54,60,62,90,94,102,110,122,126,150,158,182,188,190,220,222,250]))
 
     calc_grid()
