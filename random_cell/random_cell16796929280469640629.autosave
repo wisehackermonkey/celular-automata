@@ -1,4 +1,4 @@
-# import random
+rr# import random
 
 # def setup():
 #     size(800, 800)  # Set the size of the window
@@ -100,7 +100,6 @@ def mousePressed():
     global running
     running = not running
     print("worked")
-    reset() 
     # reset()
 def reset():
     background(255)
@@ -111,8 +110,9 @@ def reset():
     current_row = 0
   
     grid = [[0 for _ in range(width)] for _ in range(height)]  # Initialize the grid with all 0s
-    start_point = (width//2, 0)  # Set the starting point
-    grid[start_point[1]][start_point[0]] = 1   
+   
+    # frameRate(30)  # Adjust the speed of the sketch for visualization
+    draw_grid()
 def convert_to_rule(decimal):
     # array_binary =  list("{:0>8}".format(str(bin(decimal  % 255))[2:]))
     # return  
@@ -148,10 +148,10 @@ def calc_grid():
         grid[current_row + 1] = next_row
         current_row += 1
         draw_grid()
-        # if running:
-        #     reset() 
-            # running = False
-        
+        if running:
+            
+        else:
+            background(255)
 def flip_value(input_value, probability):
     if not (input_value in [0, 1]):
         raise ValueError("input_value must be 0 or 1")
