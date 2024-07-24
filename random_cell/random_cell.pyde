@@ -75,48 +75,43 @@ import random
 
 def setup():
     size(800, 800)  # Set the size of the window
-    global grid, width, height, start_point, current_row, scale_grid, probability, rule, running
+    global  running,rule_number,  width, height,scale_grid, changer
+    changer = 0
     running = False
-    # rule.reverse()
-    RULE_NUMBER = 22
-    rule = convert_to_rule(RULE_NUMBER)
-    # rule = [0,1,1,0,1,1,0,1]
-    print(rule)
-    print(type(rule))
+    rule_number = 22
     width = 400  # Set the width of the grid
     height = 400  # Set the height of the grid
+    scale_grid = 2
+
+    reset()
+
+def mousePressed():
+    global running, rule_number
+    running = not running
+    print("mousePressed")
+    rule_number +=1
+    reset() 
+
+def reset():
+    
+    global grid,start_point, current_row, probability, rule
+    rule = convert_to_rule([30,54,60,62,90,94,102,110,122,126,150,158,182,188,190,220,222,250][rule_number%18])
+    
     start_point = (width//2, 0)  # Set the starting point
     current_row = 0
-    scale_grid = 2
     probability = 0.0001
     grid = [[0 for _ in range(width)] for _ in range(height)]  # Initialize the grid with all 0s
-    grid[start_point[1]][start_point[0]] = 1  # Set the start point in the grid
-    # grid[0][5] = 1  # Set the start point in the grid
-    # reset()
-    # frameRate(30)  # Adjust the speed of the sketch for visualization
-    noSmooth()
-    draw_grid()
-def mousePressed():
-    global running
-    running = not running
-    print("worked")
-    reset() 
-    # reset()
-def reset():
-    background(255)
-    stroke(0)
-    fill(0)
-    
-    global grid, current_row
-    current_row = 0
-  
-    grid = [[0 for _ in range(width)] for _ in range(height)]  # Initialize the grid with all 0s
-    start_point = (width//2, 0)  # Set the starting point
-    grid[start_point[1]][start_point[0]] = 1   
+    grid[start_point[1]][start_point[0]] = 1  
+
+
+
+
 def convert_to_rule(decimal):
     # array_binary =  list("{:0>8}".format(str(bin(decimal  % 255))[2:]))
     # return  
-    return [int(x) for x in list("{:08b}".format(decimal % 255)) ]
+    p = [int(x) for x in list("{:08b}".format(decimal % 255)) ]
+    print(p)
+    return p
 def calc_grid():
     global current_row
     global rule
@@ -163,12 +158,20 @@ def flip_value(input_value, probability):
     else:
         return input_value
 def draw_grid():
-    background(255)
-    stroke(0)
-    fill(0)
+    background(0)
+    # stroke(0)
+    noStroke()
+    # fill(0)
     for y in range(height):
         for x in range(width):
             if grid[y][x] == 1:
+                fill(random.randint(0,255),random.randint(0,255),random.randint(0,255))
                 rect(x * scale_grid, y * scale_grid, scale_grid, scale_grid)
 def draw():
+    global changer,rule
+    if changer % 10 ==0:
+        rule = convert_to_rule(random.choice([30,54,60,62,90,94,102,110,122,126,150,158,182,188,190,220,222,250]))
+
     calc_grid()
+    changer += 1
+    
