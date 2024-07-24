@@ -4,7 +4,7 @@ import random
 def setup():
     size(800, 800)  # Set the size of the window
     global  running,rule_number,  width, height,scale_grid, changer, xoff,yoff,zoff, CHANGE_INTERVAL
-    CHANGE_INTERVAL = 10
+    CHANGE_INTERVAL = 2000#random.randint(1,20)
     changer = 0
     running = False
     rule_number = 22
@@ -22,11 +22,13 @@ def setup():
     reset()
 
 def mousePressed():
-    global running, rule_number
+    global running, rule_number, rule
     running = not running
-    print("mousePressed")
+    print("mousePressed",rule)
     rule_number +=1
-    reset() 
+    rule = convert_to_rule([30,54,60,62,90,94,102,110,122,126,150,158,182,188,190,220,222,250][rule_number%18])
+
+    # reset() 
 def perlin():
     global xoff
     xoff += 0.01
